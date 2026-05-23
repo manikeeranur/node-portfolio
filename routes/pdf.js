@@ -5,16 +5,16 @@ const puppeteer = require('puppeteer');
 router.get('/', async (_req, res) => {
   let browser = null;
   try {
-    const isLinux = process.platform === 'linux';
     browser = await puppeteer.launch({
-      headless: 'shell',
+      headless: true,
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
         '--disable-dev-shm-usage',
         '--disable-accelerated-2d-canvas',
+        '--no-first-run',
+        '--no-zygote',
         '--disable-gpu',
-        ...(isLinux ? ['--no-zygote', '--single-process'] : []),
       ],
     });
 
@@ -54,7 +54,6 @@ router.get('/', async (_req, res) => {
 
   } catch (err) {
     console.error('PDF generation error:', err.message);
-    console.error('PDF generation stack:', err.stack);
     if (!res.headersSent) {
       res.status(500).json({ error: 'Failed to generate PDF', detail: err.message });
     }

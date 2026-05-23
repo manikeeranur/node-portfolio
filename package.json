@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "restart": "npx kill-port 5000 && npm run dev"
+    "restart": "npx kill-port 5000 && npm run dev",
+    "postinstall": "node -e \"const p=require('puppeteer');\" 2>/dev/null || true"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

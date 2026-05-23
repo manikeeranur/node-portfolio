@@ -22,6 +22,7 @@ router.get('/', async (_req, res) => {
     await page.setViewport({ width: 1024, height: 1080 });
 
     const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3010';
+    console.log('PDF: navigating to', `${frontendUrl}/myresume`);
     await page.goto(`${frontendUrl}/myresume`, {
       waitUntil: 'networkidle0',
       timeout: 60000,
@@ -53,6 +54,7 @@ router.get('/', async (_req, res) => {
 
   } catch (err) {
     console.error('PDF generation error:', err.message);
+    console.error('PDF generation stack:', err.stack);
     if (!res.headersSent) {
       res.status(500).json({ error: 'Failed to generate PDF', detail: err.message });
     }

@@ -5,6 +5,7 @@ const puppeteer = require('puppeteer');
 router.get('/', async (_req, res) => {
   let browser = null;
   try {
+    const isLinux = process.platform === 'linux';
     browser = await puppeteer.launch({
       headless: 'shell',
       args: [
@@ -13,6 +14,7 @@ router.get('/', async (_req, res) => {
         '--disable-dev-shm-usage',
         '--disable-accelerated-2d-canvas',
         '--disable-gpu',
+        ...(isLinux ? ['--no-zygote', '--single-process'] : []),
       ],
     });
 

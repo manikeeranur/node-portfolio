@@ -15,6 +15,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+app.options('*', cors()); // handle preflight for all routes
 
 // Large limit to support base64 profile/project images
 app.use(express.json({ limit: '50mb' }));

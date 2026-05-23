@@ -6,16 +6,13 @@ router.get('/', async (_req, res) => {
   let browser = null;
   try {
     browser = await puppeteer.launch({
-      headless: true,
+      headless: 'shell',
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
         '--disable-dev-shm-usage',
         '--disable-accelerated-2d-canvas',
         '--disable-gpu',
-        '--no-first-run',
-        '--no-zygote',
-        '--single-process',
       ],
     });
 
